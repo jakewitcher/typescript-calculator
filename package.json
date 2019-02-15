@@ -1,0 +1,21 @@
+{
+  "name": "ts-calculator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel src/index.html -p 3000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/uuid": "^3.4.4",
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.3",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "tslint-config-airbnb": "^5.11.1"
+  }
+}

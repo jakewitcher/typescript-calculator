@@ -1,10 +1,6 @@
 import { add, subtract, multiply, divide, Operator } from '../src/computations';
 
-// const title = document.getElementById('title');
-// (button as HTMLElement).addEventListener('click', () => {
-//   (title as HTMLElement).textContent = 'It worked!';
-// });
-
+// state
 let firstVal: string = '';
 let secondVal: string = '';
 let operator: Operator | undefined;
@@ -18,6 +14,7 @@ const operators = [
   { fn: divide, sym: '/' },
 ];
 
+// elements
 const display = document.getElementById('display');
 const numberButtons = document.getElementById('number-buttons');
 const operatorButtons = document.getElementById('operator-buttons');

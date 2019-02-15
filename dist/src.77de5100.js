@@ -144,10 +144,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var computations_1 = require("../src/computations"); // const title = document.getElementById('title');
-// (button as HTMLElement).addEventListener('click', () => {
-//   (title as HTMLElement).textContent = 'It worked!';
-// });
+var computations_1 = require("../src/computations"); // state
 
 
 var firstVal = '';
@@ -166,7 +163,8 @@ var operators = [{
 }, {
   fn: computations_1.divide,
   sym: '/'
-}];
+}]; // elements
+
 var display = document.getElementById('display');
 var numberButtons = document.getElementById('number-buttons');
 var operatorButtons = document.getElementById('operator-buttons');
@@ -239,7 +237,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63617" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59016" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

@@ -159,17 +159,18 @@ var operators = [{
   sym: '-'
 }, {
   fn: computations_1.multiply,
-  sym: 'x'
+  sym: '&times'
 }, {
   fn: computations_1.divide,
-  sym: '/'
+  sym: '&divide'
 }]; // elements
 
 var display = document.getElementById('display');
 var numberButtons = document.getElementById('number-buttons');
 var operatorButtons = document.getElementById('operator-buttons');
 var equalsOperator = document.getElementById('equals-operator');
-var clearButton = document.getElementById('clear');
+var clearButton = document.getElementById('clear'); // initialize display
+
 display.textContent = '0'; // create buttons for each number value
 
 numbers.forEach(function (num) {
@@ -178,11 +179,15 @@ numbers.forEach(function (num) {
   ele.className = 'button button--number';
   ele.addEventListener('click', function () {
     if (operator === undefined) {
-      firstVal = firstVal.concat(ele.textContent);
-      display.textContent = firstVal;
+      if (firstVal.length < 6) {
+        firstVal = firstVal.concat(ele.textContent);
+        display.textContent = firstVal;
+      }
     } else {
-      secondVal = secondVal.concat(ele.textContent);
-      display.textContent = secondVal;
+      if (secondVal.length < 6) {
+        secondVal = secondVal.concat(ele.textContent);
+        display.textContent = secondVal;
+      }
     }
   });
   numberButtons.insertBefore(ele, clearButton);
@@ -190,7 +195,7 @@ numbers.forEach(function (num) {
 
 operators.forEach(function (op) {
   var ele = document.createElement('button');
-  ele.textContent = op.sym;
+  ele.innerHTML = op.sym;
   ele.className = 'button button--operator';
   ele.addEventListener('click', function () {
     operator = op.fn;
@@ -198,17 +203,35 @@ operators.forEach(function (op) {
   operatorButtons.appendChild(ele);
 }); // create button for equals
 
-equalsOperator.addEventListener('click', function () {
-  var result = operator(parseInt(firstVal, 10), parseInt(secondVal, 10)).toString();
+function handleResult(result) {
   display.textContent = result;
   firstVal = result;
+  secondVal = '';
+}
+
+equalsOperator.addEventListener('click', function () {
+  if (firstVal && secondVal && operator) {
+    var result = operator(parseFloat(firstVal), parseFloat(secondVal)).toString();
+
+    if (result.length <= 6) {
+      handleResult(result);
+    } else if (result.includes('.')) {
+      result = result.slice(0, 7);
+      handleResult(result);
+    } else {
+      display.textContent = 'err';
+      firstVal = '';
+      secondVal = '';
+      operator = undefined;
+    }
+  }
 }); // create button to clear all
 
 clearButton.addEventListener('click', function () {
+  display.textContent = '0';
   firstVal = '';
   secondVal = '';
   operator = undefined;
-  display.textContent = '0';
 });
 },{"../src/computations":"computations.ts"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -237,7 +260,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59016" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62690" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

@@ -25,7 +25,7 @@ const clearButton = document.getElementById('clear');
 // create buttons for each number value
 numbers.forEach(num => {
   const ele = document.createElement('button');
-  ele.textContent = num;
+  ele.textContent = num.toString();
   ele.className = 'button button--number';
   ele.addEventListener('click', () => {
     if (operator === undefined) {
@@ -63,6 +63,12 @@ function handleResult(result: string) {
 
 (equalsOperator as HTMLButtonElement).addEventListener('click', () => {
   if (firstVal && secondVal && operator) {
+    if (secondVal === '0' && operator === divide) {
+      (display as HTMLElement).textContent = 'err';
+      firstVal = '';
+      secondVal = '';
+      operator = undefined;
+    }
     let result = (operator as Operator)(
       parseFloat(firstVal),
       parseFloat(secondVal),

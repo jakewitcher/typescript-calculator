@@ -175,7 +175,7 @@ display.textContent = '0'; // create buttons for each number value
 
 numbers.forEach(function (num) {
   var ele = document.createElement('button');
-  ele.textContent = num;
+  ele.textContent = num.toString();
   ele.className = 'button button--number';
   ele.addEventListener('click', function () {
     if (operator === undefined) {
@@ -211,6 +211,13 @@ function handleResult(result) {
 
 equalsOperator.addEventListener('click', function () {
   if (firstVal && secondVal && operator) {
+    if (secondVal === '0' && operator === computations_1.divide) {
+      display.textContent = 'err';
+      firstVal = '';
+      secondVal = '';
+      operator = undefined;
+    }
+
     var result = operator(parseFloat(firstVal), parseFloat(secondVal)).toString();
 
     if (result.length <= 6) {
@@ -260,7 +267,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50184" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51242" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

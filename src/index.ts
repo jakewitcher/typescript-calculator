@@ -4,7 +4,7 @@ import { add, subtract, multiply, divide, Operator } from '../src/computations';
 let firstVal: string = '';
 let secondVal: string = '';
 let operator: Operator | undefined;
-const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'];
 const operators = [
   { fn: add, sym: '+' },
   { fn: subtract, sym: '-' },
@@ -25,7 +25,7 @@ const clearButton = document.getElementById('clear');
 // create buttons for each number value
 numbers.forEach(num => {
   const ele = document.createElement('button');
-  ele.textContent = num.toString();
+  ele.textContent = num;
   ele.className = 'button button--number';
   ele.addEventListener('click', () => {
     if (operator === undefined) {

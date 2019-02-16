@@ -90,10 +90,6 @@ body {
   background: hsl(56, 52%, 78%);
 }
 
-.button--clear {
-  width: 96px;
-}
-
 .button--operator {
   background: hsl(170, 62%, 61%);
   border-bottom: 4px solid hsl(170, 62%, 30%);

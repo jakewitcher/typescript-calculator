@@ -150,7 +150,7 @@ var computations_1 = require("../src/computations"); // state
 var firstVal = '';
 var secondVal = '';
 var operator;
-var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+var numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'];
 var operators = [{
   fn: computations_1.add,
   sym: '+'
@@ -175,7 +175,7 @@ display.textContent = '0'; // create buttons for each number value
 
 numbers.forEach(function (num) {
   var ele = document.createElement('button');
-  ele.textContent = num.toString();
+  ele.textContent = num;
   ele.className = 'button button--number';
   ele.addEventListener('click', function () {
     if (operator === undefined) {
@@ -260,7 +260,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62690" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50184" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

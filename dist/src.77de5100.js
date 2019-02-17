@@ -173,21 +173,25 @@ var clearButton = document.getElementById('clear'); // initialize display
 
 display.textContent = '0'; // create buttons for each number value
 
+function handleValueChange(val, ele) {
+  if (val.length < 6) {
+    var newVal = val.concat(ele.textContent);
+    display.textContent = newVal;
+    return newVal;
+  }
+
+  return val;
+}
+
 numbers.forEach(function (num) {
   var ele = document.createElement('button');
   ele.textContent = num.toString();
   ele.className = 'button button--number';
   ele.addEventListener('click', function () {
     if (operator === undefined) {
-      if (firstVal.length < 6) {
-        firstVal = firstVal.concat(ele.textContent);
-        display.textContent = firstVal;
-      }
+      firstVal = handleValueChange(firstVal, ele);
     } else {
-      if (secondVal.length < 6) {
-        secondVal = secondVal.concat(ele.textContent);
-        display.textContent = secondVal;
-      }
+      secondVal = handleValueChange(secondVal, ele);
     }
   });
   numberButtons.insertBefore(ele, clearButton);
@@ -209,36 +213,34 @@ function handleResult(result) {
   secondVal = '';
 }
 
+function handleReset(displayMsg) {
+  display.textContent = displayMsg;
+  firstVal = '';
+  secondVal = '';
+  operator = undefined;
+}
+
 equalsOperator.addEventListener('click', function () {
   if (firstVal && secondVal && operator) {
     if (secondVal === '0' && operator === computations_1.divide) {
-      display.textContent = 'err';
-      firstVal = '';
-      secondVal = '';
-      operator = undefined;
-    }
-
-    var result = operator(parseFloat(firstVal), parseFloat(secondVal)).toString();
-
-    if (result.length <= 6) {
-      handleResult(result);
-    } else if (result.includes('.')) {
-      result = result.slice(0, 7);
-      handleResult(result);
+      handleReset('err');
     } else {
-      display.textContent = 'err';
-      firstVal = '';
-      secondVal = '';
-      operator = undefined;
+      var result = operator(parseFloat(firstVal), parseFloat(secondVal)).toString();
+
+      if (result.length <= 6) {
+        handleResult(result);
+      } else if (result.includes('.')) {
+        result = result.slice(0, 7);
+        handleResult(result);
+      } else {
+        handleReset('err');
+      }
     }
   }
 }); // create button to clear all
 
 clearButton.addEventListener('click', function () {
-  display.textContent = '0';
-  firstVal = '';
-  secondVal = '';
-  operator = undefined;
+  handleReset('0');
 });
 },{"../src/computations":"computations.ts"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -267,7 +269,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51242" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57573" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

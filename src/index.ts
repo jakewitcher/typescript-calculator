@@ -23,21 +23,24 @@ const clearButton = document.getElementById('clear');
 (display as HTMLElement).textContent = '0';
 
 // create buttons for each number value
+function handleValueChange(val: string, ele: HTMLElement): string {
+  if (val.length < 6) {
+    const newVal = val.concat(ele.textContent as string);
+    (display as HTMLElement).textContent = newVal;
+    return newVal;
+  }
+  return val;
+}
+
 numbers.forEach(num => {
   const ele = document.createElement('button');
   ele.textContent = num.toString();
   ele.className = 'button button--number';
   ele.addEventListener('click', () => {
     if (operator === undefined) {
-      if (firstVal.length < 6) {
-        firstVal = firstVal.concat(ele.textContent as string);
-        (display as HTMLElement).textContent = firstVal;
-      }
+      firstVal = handleValueChange(firstVal, ele);
     } else {
-      if (secondVal.length < 6) {
-        secondVal = secondVal.concat(ele.textContent as string);
-        (display as HTMLElement).textContent = secondVal;
-      }
+      secondVal = handleValueChange(secondVal, ele);
     }
   });
   (numberButtons as HTMLElement).insertBefore(ele, clearButton);
@@ -61,36 +64,35 @@ function handleResult(result: string) {
   secondVal = '';
 }
 
+function handleReset(displayMsg: string) {
+  (display as HTMLElement).textContent = displayMsg;
+  firstVal = '';
+  secondVal = '';
+  operator = undefined;
+}
+
 (equalsOperator as HTMLButtonElement).addEventListener('click', () => {
   if (firstVal && secondVal && operator) {
     if (secondVal === '0' && operator === divide) {
-      (display as HTMLElement).textContent = 'err';
-      firstVal = '';
-      secondVal = '';
-      operator = undefined;
-    }
-    let result = (operator as Operator)(
-      parseFloat(firstVal),
-      parseFloat(secondVal),
-    ).toString();
-    if (result.length <= 6) {
-      handleResult(result);
-    } else if (result.includes('.')) {
-      result = result.slice(0, 7);
-      handleResult(result);
+      handleReset('err');
     } else {
-      (display as HTMLElement).textContent = 'err';
-      firstVal = '';
-      secondVal = '';
-      operator = undefined;
+      let result = (operator as Operator)(
+        parseFloat(firstVal),
+        parseFloat(secondVal),
+      ).toString();
+      if (result.length <= 6) {
+        handleResult(result);
+      } else if (result.includes('.')) {
+        result = result.slice(0, 7);
+        handleResult(result);
+      } else {
+        handleReset('err');
+      }
     }
   }
 });
 
 // create button to clear all
 (clearButton as HTMLButtonElement).addEventListener('click', () => {
-  (display as HTMLElement).textContent = '0';
-  firstVal = '';
-  secondVal = '';
-  operator = undefined;
+  handleReset('0');
 });
